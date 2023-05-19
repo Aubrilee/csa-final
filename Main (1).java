@@ -3,10 +3,12 @@ package fls;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import javax.swing.JButton;
+import javax.swing.*;
 
 class Main {
   public static void main(String[] args) {
@@ -40,8 +42,15 @@ class Main {
     n.setVisible(false);
     n2.setVisible(false);
     
-    Player current = p;
     */
+    Player current;
+    
+    
+    JLabel question = new JLabel("");
+    question.setBounds(100,700,200,30);
+    f.add(question);
+    question.setForeground(new Color(255,255,255));
+    
     for(int i = 0; i < 6;i++){
       Title t = new Title(categories[i],20 + (160*i),100);
       f.add(t);
@@ -50,11 +59,12 @@ class Main {
     for (int i = 0; i < 6; i++){
       int y = 140;
       for (int j = 200; j <= 1000; j+=200){
-        Card c = new Card(x,50 + y,""+ j);
+        Card c = new Card(x,50 + y,""+ j,i,(j/200)-1);
         c.addActionListener(new ActionListener(){
         	public void actionPerformed(ActionEvent e) {
         		c.setBackground(new Color(100,100,100));
         		c.setEnabled(false);
+        		question.setText(questions[c.getRow()][c.getCol()]);
         	}
         });
         y+=90;
@@ -63,18 +73,38 @@ class Main {
       x+= 160;
     }
     
+    //help from stack overflow
+    f.addKeyListener(new KeyAdapter() {
+    	public void keyTyped(KeyEvent e) {
+    		int keycode = e.getKeyCode();
+    		if (keycode == 65) {
+    			question.setText("p111");
+    		}
+    		else if(keycode == 71) {
+    			question.setText("p2");
+    		}
+    	}
+    });
+    
+    JLabel what = new JLabel("What is...");
+    what.setBounds(330,750,70,20);
+    what.setForeground(new Color(255,255,255));
+    f.add(what);
+    
     TextField t = new TextField("", 90);
-    t.setBounds(400,700,150,20);
+    t.setBounds(400,750,150,20);
     f.add(t);
     
     JButton submit = new JButton("Submit");
-    submit.setBounds(575,695,100,30);
+    submit.setBounds(575,745,100,30);
     submit.setBackground(new Color(0,0,255));
     submit.setForeground(new Color(255,255,0));
    
     submit.addActionListener(new ActionListener(){
     	public void actionPerformed(ActionEvent e) {
-    		//smoething
+    		what.setVisible(false);
+    		t.setVisible(false);
+    		submit.setVisible(false);
     	}
     });
     f.add(submit);
