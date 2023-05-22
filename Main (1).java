@@ -12,6 +12,9 @@ import java.awt.event.WindowEvent;
 import javax.swing.*;
 
 class Main {
+	public static Player current;
+	public static Player p;
+	public static Player p2;
   public static void main(String[] args) {
 	String[] categories = {"HISTORY","ESPN's TOP 10 ALL-TIME ATHLETES","EVERYBODY TALKS ABOUT IT...","THE COMPANY LINE","EPITAPHS & TRIBUTES","3-LETTER WORDS"};
 	String[][] questions = {
@@ -101,20 +104,18 @@ class Main {
     while (n.getName() == null){
     	n.setVisible(true);
     }
-    Player p = new Player(n.getName(), 30);
+    p = new Player(n.getName(), 30);
     f.add(p);
     
     NameGetter n2 = new NameGetter(2);
     while (n2.getName() == null){
     	n2.setVisible(true);
     }
-    Player p2 = new Player(n2.getName(), 150);
+    p2 = new Player(n2.getName(), 150);
     f.add(p2);
     
     n.setVisible(false);
     n2.setVisible(false);
-    
-    Player current = p;
     
     JLabel question = new JLabel("");
     question.setBounds(100,700,800,30);
@@ -126,12 +127,6 @@ class Main {
     turn.setForeground(new Color(255,255,255));
     turn.setVisible(true);
     f.add(turn);
-    
-    Label ugh = new Label("eeee");
-    ugh.setBounds(400,650,300,30);
-    ugh.setForeground(new Color(255,255,255));
-    ugh.setVisible(true);
-    f.add(ugh);
     
     Label selectedC = new Label();
     
@@ -170,7 +165,7 @@ class Main {
         		turn.setText("Click now!");
         		c.setEnabled(false);
         		f.setFocusable(true);
-        		ugh.setText(questBox());
+        		questBox();
         		selectedC.setText("" + c.getRow() + c.getCol());
         	}
         });
@@ -189,13 +184,15 @@ class Main {
     		int r = Integer.parseInt(selectedC.getText().substring(0,1));
     		int c = Integer.parseInt(selectedC.getText().substring(1));
     		int money = (r+1)*200;
-    		if (t.getText().equalsIgnoreCase(answers[c][r])){
+    		 if (t.getText().equalsIgnoreCase(answers[c][r])){
     			question.setText("Right! Choose another question!");
     			current.addMoney(money);
+    			current = null;
     			
     		}else{
     			question.setText("Wrong! Choose another question!");
     			current.subMoney(money);
+    			current = null;
     		}
     	}
     });
@@ -207,7 +204,7 @@ class Main {
     f.setLayout(null);   
     f.setVisible(true); 
   }
-  public static String questBox() {
+  public static void questBox() {
 	  
 	  Frame f = new Frame();
 	  f.setSize(1000,800); 
@@ -233,9 +230,20 @@ class Main {
 	    		int keycode = e.getKeyCode();
 	    		if ((keycode == KeyEvent.VK_A)){
 	    			whoWin.setText("Player 1 wins!!");
-	    			f.dispose();
+	    			current = p;
+	    			f.setFocusable(false);
+	    			Timer x = new Timer();
+	    			TimerTask b = new TimerTask() {
+	    				public void run() {
+	    					cancel();
+	    					f.dispose();
+	    				}
+	    			};
+	    			x.schedule(b,2000);
 	    		}
 	    		else if((keycode == KeyEvent.VK_G)) {
+	    			current = p2;
+	    			f.setFocusable(false);
 	    			whoWin.setText("Player 2 wins!");
 	    			Timer x = new Timer();
 	    			TimerTask b = new TimerTask() {
@@ -244,7 +252,7 @@ class Main {
 	    					f.dispose();
 	    				}
 	    			};
-	    			x.schedule(b,3000);
+	    			x.schedule(b,2000);
 	    		
 	    		}	
 	    	}
@@ -253,7 +261,7 @@ class Main {
 	    
 	    Timer t = new Timer();
 		TimerTask h = new TimerTask(){
-			int we = 30;
+			int we = 10;
 			public void run() {
 				l.setText(we +" seconds!");
 				we--;
@@ -269,7 +277,6 @@ class Main {
 	  
 	  f.setLayout(null);
 	  f.setVisible(true);
-	  return whoWin.getText();
 	  
   }
 } 
