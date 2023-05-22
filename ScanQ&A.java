@@ -6,8 +6,9 @@ public class ScanQA {
   public static void HardC(){
     String c1 = "History";
     String c2 = "ESPN's top 10 All Time";
-    String c3 = "Epitaphs & Tributes";
-    String c4 = "3-Letter Words";
+    String c3 = "EVERYBODY TALKS ABOUT IT....";
+    String c4 = "Epitaphs & Tributes";
+    String c5 = "3-Letter Words";
     
   import java.util.*;
 class Main {
