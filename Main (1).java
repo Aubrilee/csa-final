@@ -90,7 +90,7 @@ class Main {
 		"imp",
 		"era",
 		"ply"}};
-	
+// jeapordy board front page 
     Frame f = new Frame();
     f.addWindowListener(new WindowAdapter() {
     	public void windowClosing(WindowEvent e) {
@@ -99,7 +99,8 @@ class Main {
     });
     f.setSize(1000,800); 
     f.setBackground(new Color(0,0,0));
-    
+  
+	  // to ask for name of player
     NameGetter n = new NameGetter(1);
     while (n.getName() == null){
     	n.setVisible(true);
@@ -117,6 +118,7 @@ class Main {
     n.setVisible(false);
     n2.setVisible(false);
     
+	  // displays question on bottom of frame 1 
     JLabel question = new JLabel("");
     question.setBounds(100,700,800,30);
     f.add(question);
@@ -204,6 +206,10 @@ class Main {
     f.setLayout(null);   
     f.setVisible(true); 
   }
+	
+	// buzzing in and timer frame 
+	// beautify (font color size place)
+	// 
   public static void questBox() {
 	  
 	  Frame f = new Frame();
@@ -257,7 +263,7 @@ class Main {
 	    		}	
 	    	}
 	    };
-	    f.addKeyListener(keyad);
+	    f.addKeyListener(keyad); //checks if key was clicked by player
 	    
 	    Timer t = new Timer();
 		TimerTask h = new TimerTask(){
@@ -273,10 +279,10 @@ class Main {
 				
 			}
 		};
-		t.schedule(h,1,1000);
+		t.schedule(h,1,1000); // every second there is countdown
 	  
 	  f.setLayout(null);
-	  f.setVisible(true);
+	  f.setVisible(true); //frame 2
 	  
   }
 } 
