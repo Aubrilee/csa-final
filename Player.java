@@ -1,3 +1,4 @@
+package fls;
 import java.awt.*;
 import javax.swing.*;
 
@@ -15,16 +16,22 @@ public class Player extends JLabel{
     this.setBounds(x,30,80,50);
   }
 
-  public void changeMoney(int money){
+  public void addMoney(int money){
     this.totalMoney += money;
     this.setText(name + ": " + totalMoney);
   }
+  public void subMoney(int money){
+	    this.totalMoney -= money;
+	    this.setText(name + ": " + totalMoney);
+	  }
 // create class make a player to increment money based on how much money they have and get money 
   // dont specity how many 
   //list of questions (inmain class) with dialogue 
   /* if it's correct increment amount 
   add daily double using Math.random
   */
-
+  public String getName() {
+	  return name;
+  }
   
 }
