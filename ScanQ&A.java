@@ -9,45 +9,29 @@ public class ScanQA {
     String c3 = "Epitaphs & Tributes";
     String c4 = "3-Letter Words";
     
-    String[][] questions = new String[5][4];
-    String[][] answers = new String[5][4];
-    
-    Scanner scanQ = new Scanner();
-    Scanner scanA = new Scanner();
-    
-    for (int i = 0; i < 5; i++){
-      for (int j = 0; j < 4; j++){
-        questions[i][j] = scanQ.nextLine();
-      }
-    }
-      
-    for (int i = 0; i < 5; i++){
-      for (int j = 0; j < 4; j++){
-        answers[i][j] = scanA.nextLine();
-      }
-    }
-  }
-  
-/*
-  private String question;
-  private String answer;
-  private String category;
-  private String amount;
-  public static void ScanQA(){
+  import java.util.*;
+class Main {
+  /*
+  public static void main(String[] args) {
+      String questionsList[5][6] = {{"For the last 8 years of his life, Galileo was under house arrest for espousing this man's theory", "No. 2: 1912 Olympian; football star at Carlisle Indian School; 6 MLB seasons with the Reds, Giants & Braves", "The city of Yuma in this state has a record average of 4,055 hours of sunshine each year", "In 1963, live on \"The Art Linkletter Show\", this company served its billionth burger", "Signer of the Dec. of Indep., framer of the Constitution of Mass., second President of the United States", "In the title of an Aesop fable, this insect shared billing with a grasshopper"},
+{"Built in 312 B.C. to link Rome & the South of Italy, it's still in use today", "No. 8: 30 steals for the Birmingham Barons; 2,306 steals for the Bulls", "In the winter of 1971-72, a record 1,122 inches of snow fell at Rainier Paradise Ranger Station in this state", "This housewares store was named for the packaging its merchandise came in & was first displayed on","\"And away we go\"", "Cows regurgitate this from the first stomach to the mouth & chew it again"}, 
+{"In 1000 Rajaraja I of the Cholas battled to take this Indian Ocean island now known for its tea","No. 1: Lettered in hoops, football & lacrosse at Syracuse & if you think he couldn't act, ask his 11 \"unclean\" buddies", "On June 28, 1994 the nat'l weather service began issuing this index that rates the intensity of the sun's radiation", "This company's Accutron watch, introduced in 1960, had a guarantee of accuracy to within one minute a  month", "Outlaw: \"Murdered by a traitor and a coward whose name is not worthy to appear here\"", "A small demon, or a mischievous child (who might be a little demon!)"},
+      {"Karl led the first of these Marxist organizational efforts; the second one began in 1889", "No. 10: FB/LB for Columbia U. in the 1920s; MVP for the Yankees in '27 & '36; \"Gibraltar in Cleats\"","Africa's lowest temperature was 11 degrees below zero in 1935 at Ifrane, just south of Fez in this country","Edward Teller & this man partnered in 1898 to sell high fashions to women","1939 Oscar winner: \"...you are a credit to your craft, your race and to your family\"","In geologic time one of these, shorter than an eon, is divided into periods & subdivided into epochs"},
+    {"This Asian political party was founded in 1885 with \"Indian National\" as part of its name","No. 5: Only center to lead the NBA in assists; track scholarship to Kansas U.; marathoner; volleyballer","It's the only U.S. state whose recorded temperature has never dropped below 0 degrees Fahrenheit","The Kirschner brothers, Don & Bill, named this ski company for themselves & the second-highest mountain","Revolutionary War hero: \"His spirit is in Vermont now\"","A single layer of paper, or to perform one's craft diligently",}};
   */
-    
-/*
-    File qaSheet = new File("Q and A Table");
-    Scanner s = new Scanner(qaSheet);
- 
-  }
+    String answers[5][6] = { {"Copernicus", "Jim Thorpe", "Arizona", "McDonald's", "John Adams", "the ant"}, 
+                             {"the Appian Way", "Michael Jordan", "Washington", "Crate & Barrel","Jackie Gleason", "the cud"}, 
+                             {"Ceylon (or Sri Lanka)","Jim Brown", "the UV index", "Bulova", "Jesse James", "imp"}, 
+                             {"the International", "(Lou) Gehrig","Morocco","(Paul) Bonwit","Hattie McDaniel (for her role in Gone with the Wind)","era"},
+                             {"the Congress Party","(Wilt) Chamberlain","Hawaii","K2","Ethan Allen","ply"} };
 
-  public static getName {
-    String categoryQuestions [5][5] = {{"C1", "C2", "C3", "C4", "C5"},{"Q1 A1", "Q2 A2", "Q3 A3", "Q4 A4", "Q5 A5"}, {"Q6 A6", "Q7 A7", "Q8 A8", "Q9 A9", "Q10 A10"},{"Q11 A11", "Q12 A12", "Q13 A13","Q14 A14", "Q15 A15"}, {"Q16 A16", "Q17 A17", "Q18 A18", "Q19 A19", "Q20 A20"}};
-    String answers [4][4] = {{"A1", "A2", "A3", "A4", "A5"}, {"A6", "A7", "A8", "A9", "A10"},{"A11", "A12", "A13","A14", "A15"}, {"A16", "A17", "A18", "A19", "A20"}};
-  
+    for (int i = 0; i < answers.length; i++){
+      for (int j = 0; j<answers[i].length; j++){
+        System.out.print(answers[i][j]+" ");
+      }
+    }
   }
-  */
+}
 }
 
 
