@@ -15,9 +15,10 @@ class Main {
 	public static Player current;
 	public static Player p;
 	public static Player p2;
-  public static void main(String[] args) {
-	String[] categories = {"HISTORY","ESPN's TOP 10 ALL-TIME ATHLETES","EVERYBODY TALKS ABOUT IT...","THE COMPANY LINE","EPITAPHS & TRIBUTES","3-LETTER WORDS"};
-	String[][] questions = {
+	public static Player p3;
+	public static Label winBuzz;
+	public static String[] categories = {"HISTORY","ESPN's TOP 10 ALL-TIME ATHLETES","EVERYBODY TALKS ABOUT IT...","THE COMPANY LINE","EPITAPHS & TRIBUTES","3-LETTER WORDS"};
+	public static String[][] questions = {
 		{"For the last 8 years of his life, Galileo was under house arrest for espousing this man's theory.",
 		"Built in 312 B.C. to link Rome & the South of Italy, it's still in use today",
 		"In 1000 Rajaraja I of the Cholas battled to take this Indian Ocean island now known for its tea",
@@ -55,7 +56,7 @@ class Main {
 		"A single layer of paper, or to perform one's craft diligently"}
 		
 	};
-	String[][] answers = {{"Copernicus",
+	public static String[][] answers = {{"Copernicus",
 		"the Appian Way",
 		"Sri Lanka",
 		"the International",
@@ -90,6 +91,8 @@ class Main {
 		"imp",
 		"era",
 		"ply"}};
+  public static void main(String[] args) {
+	
 // jeapordy board front page 
     Frame f = new Frame();
     f.addWindowListener(new WindowAdapter() {
@@ -115,8 +118,16 @@ class Main {
     p2 = new Player(n2.getName(), 150);
     f.add(p2);
     
+    NameGetter n3 = new NameGetter(3);
+    while (n3.getName() == null){
+    	n3.setVisible(true);
+    }
+    p3 = new Player(n3.getName(), 270);
+    f.add(p3);
+    
     n.setVisible(false);
     n2.setVisible(false);
+    n3.setVisible(false);
     
 	  // displays question on bottom of frame 1 
 	  // beautify
@@ -129,6 +140,7 @@ class Main {
     turn.setBounds(100,650,300,30);
     turn.setForeground(new Color(255,255,255));
     turn.setVisible(true);
+    winBuzz = turn;
     f.add(turn);
     
     Label selectedC = new Label();
@@ -160,15 +172,15 @@ class Main {
         Card c = new Card(x,50 + y,""+ j,(j/200)-1,i);
         c.addActionListener(new ActionListener(){
         	public void actionPerformed(ActionEvent e) {
+        		winBuzz.setText(null);
         		what.setVisible(true);
         		t.setVisible(true);
         		submit.setVisible(true);
         		c.setBackground(new Color(100,100,100));
         		question.setText(questions[c.getCol()][c.getRow()]);
-        		turn.setText("Click now!");
         		c.setEnabled(false);
         		f.setFocusable(true);
-        		questBox();
+        		questBox(c.getCol(),c.getRow());
         		selectedC.setText("" + c.getRow() + c.getCol());
         	}
         });
@@ -187,13 +199,13 @@ class Main {
     		int r = Integer.parseInt(selectedC.getText().substring(0,1));
     		int c = Integer.parseInt(selectedC.getText().substring(1));
     		int money = (r+1)*200;
-    		 if (t.getText().equalsIgnoreCase(answers[c][r])){
+    		 if (current != null && t.getText().equalsIgnoreCase(answers[c][r])){
     			question.setText("Right! Choose another question!");
     			current.addMoney(money);
     			current = null;
     			
-    		}else{
-    			question.setText("Wrong! Choose another question!");
+    		}else if (current != null){
+    			question.setText("Wrong! The correct answer was: " + answers[c][r] + ". Choose another question!");
     			current.subMoney(money);
     			current = null;
     		}
@@ -211,7 +223,7 @@ class Main {
 	// buzzing in and timer frame 
 	// beautify (font color size place)
 	
-  public static void questBox() {
+  public static void questBox(int col, int row) {
 	  
 	  Frame f = new Frame();
 	  f.setSize(1000,800); 
@@ -219,13 +231,20 @@ class Main {
 	   //code ranch
 	  f.setFocusable(true);
 	  
+	  JLabel question = new JLabel("");
+	    question.setBounds(100,300,800,30);
+	    f.add(question);
+	    question.setForeground(new Color(255,255,255));
+	    question.setText(questions[col][row]);
+	    
+	  
 	  Label l = new Label();
 	  l.setBounds(100,650,300,30);
 	  l.setForeground(new Color(255,255,255));
 	  l.setVisible(true);
 	  f.add(l);
 	  
-	  Label whoWin = new Label("Buzz in with 'a' (player 1) and 'g' (player 2) keys! ");
+	  Label whoWin = new Label("Buzz in with 'a' (player 1), 'g' (player 2), and 'l' (player 3) keys! ");
 	  whoWin.setBounds(100,440,300,30);
 	  whoWin.setForeground(new Color(255,255,255));
 	  whoWin.setVisible(true);
@@ -236,7 +255,7 @@ class Main {
 	    	public void keyPressed(KeyEvent e) {
 	    		int keycode = e.getKeyCode();
 	    		if ((keycode == KeyEvent.VK_A)){
-	    			whoWin.setText("Player 1 wins!!");
+	    			whoWin.setText("Player 1 -" + p.getName() + "- wins!!");
 	    			current = p;
 	    			f.setFocusable(false);
 	    			Timer x = new Timer();
@@ -251,7 +270,7 @@ class Main {
 	    		else if((keycode == KeyEvent.VK_G)) {
 	    			current = p2;
 	    			f.setFocusable(false);
-	    			whoWin.setText("Player 2 wins!");
+	    			whoWin.setText("Player 2 -" + p2.getName() + "- wins!");
 	    			Timer x = new Timer();
 	    			TimerTask b = new TimerTask() {
 	    				public void run() {
@@ -260,8 +279,20 @@ class Main {
 	    				}
 	    			};
 	    			x.schedule(b,2000);
-	    		
-	    		}	
+	    		}
+	    		else if((keycode == KeyEvent.VK_L)) {
+	    			current = p3;
+	    			f.setFocusable(false);
+	    			whoWin.setText("Player 3 -" + p3.getName() + "- wins!");
+	    			Timer x = new Timer();
+	    			TimerTask b = new TimerTask() {
+	    				public void run() {
+	    					cancel();
+	    					f.dispose();
+	    				}
+	    			};
+	    			x.schedule(b,2000);
+	    		}
 	    	}
 	    };
 	    f.addKeyListener(keyad); //checks if key was clicked by player
@@ -273,6 +304,7 @@ class Main {
 				l.setText(we +" seconds!");
 				we--;
 				if (we == 0) {
+					winBuzz.setText("Too Late! Choose another question!");
 					l.setText("Too Late!");
 					cancel();
 					f.dispose();
