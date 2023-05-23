@@ -119,6 +119,7 @@ class Main {
     n2.setVisible(false);
     
 	  // displays question on bottom of frame 1 
+	  // beautify
     JLabel question = new JLabel("");
     question.setBounds(100,700,800,30);
     f.add(question);
@@ -146,12 +147,12 @@ class Main {
     submit.setBackground(new Color(0,0,255));
     submit.setForeground(new Color(255,255,0));
    
-    
+    // puts titles for category
     for(int i = 0; i < 6;i++){
       Title a = new Title(categories[i],20 + (160*i),100);
       f.add(a);
     }
-    
+   // put all questions in correspondance to price button 
     int x = 20;
     for (int i = 0; i < 6; i++){
       int y = 140;
@@ -177,7 +178,7 @@ class Main {
       x+= 160;
     }
     
-    
+    // submit button frame 1 sets it hidden and checks if answer is correct
     submit.addActionListener(new ActionListener(){
     	public void actionPerformed(ActionEvent e) {
     		what.setVisible(false);
@@ -209,7 +210,7 @@ class Main {
 	
 	// buzzing in and timer frame 
 	// beautify (font color size place)
-	// 
+	
   public static void questBox() {
 	  
 	  Frame f = new Frame();
