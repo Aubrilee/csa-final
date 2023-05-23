@@ -1,3 +1,5 @@
+// for some reason not centered
+//sets color of the bg
 package fls;
 import javax.swing.*;
 import java.awt.*;
