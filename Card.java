@@ -9,6 +9,8 @@ public class Card extends Button{
     this.col = col;
     this.setBounds(x,y,	150,80);
     this.setBackground(new Color(0,0,255));
+    this.setForeground(new Color(255,255,0));
+    this.setFont(new Font("Serif",0, 13));
   }
   public int getRow() {
 	  return row;
