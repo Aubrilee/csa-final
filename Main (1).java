@@ -17,6 +17,7 @@ class Main {
 	public static Player p2;
 	public static Player p3;
 	public static Label winBuzz;
+	public static Label text;
 	public static String[] categories = {"HISTORY","ESPN's TOP 10 ALL-TIME ATHLETES","EVERYBODY TALKS ABOUT IT...","THE COMPANY LINE","EPITAPHS & TRIBUTES","3-LETTER WORDS"};
 	public static String[][] questions = {
 		{"For the last 8 years of his life, Galileo was under house arrest for espousing this man's theory.",
@@ -154,6 +155,8 @@ class Main {
     t.setBounds(400,750,150,20);
     f.add(t);
     
+    text = t;
+    
     JButton submit = new JButton("Submit");
     submit.setBounds(575,745,100,30);
     submit.setBackground(new Color(0,0,255));
@@ -173,6 +176,7 @@ class Main {
         c.addActionListener(new ActionListener(){
         	public void actionPerformed(ActionEvent e) {
         		winBuzz.setText(null);
+        		t.setText(null);
         		what.setVisible(true);
         		t.setVisible(true);
         		submit.setVisible(true);
@@ -303,10 +307,12 @@ class Main {
 			public void run() {
 				l.setText(we +" seconds!");
 				we--;
-				if (we == 0) {
+				if (we < 0) {
+					this. cancel();
+					t.cancel();
+					we += 2;
 					winBuzz.setText("Too Late! Choose another question!");
 					l.setText("Too Late!");
-					cancel();
 					f.dispose();
 				}
 				
