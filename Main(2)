@@ -35,7 +35,7 @@ class Main {
                     "In the winter of 1971-72, a record 1,122 inches of snow fell at Rainier Paradise Ranger Station in this state",
                     "On June 28, 1994 the nat'l weather service began issuing this index that rates the intensity of the sun's radiation",
                     "Africa's lowest temperature was 11 degrees below zero in 1935 at Ifrane, just south of Fez in this country",
-                    "N/A"},
+                    "It's the only U.S. state whose recorded temperature has never dropped below 0 degrees Fahrenheit"},
 
             {"In 1963, live on \"The Art Linkletter Show\", this company served its billionth burger",
                     "This housewares store was named for the packaging its merchandise came in & was first displayed on",
@@ -72,7 +72,7 @@ class Main {
                     "Washington",
                     "UV index",
                     "Morocco",
-                    "N/A"},
+                    "Hawaii"},
 
             {"McDonald's",
                     "Crate & Barrel",
@@ -130,6 +130,24 @@ class Main {
         n3.setVisible(false);
 
         // displays question on bottom of frame 1
+
+
+        JPanel lower = new JPanel();
+        lower.setBackground(Color.yellow);
+        lower.setBounds(0,650,975,10);
+        frame.add(lower);
+        // displays image of jeopardy on panel
+        JLabel pic = new JLabel();
+        ImageIcon jep = new ImageIcon("C:\\Users\\msaub\\IdeaProjects\\csa-final\\src\\jeopardy.png");
+        pic.setIcon(jep);
+        lower.add(pic);
+        pic.setVisible(true);
+
+        JPanel bottom = new JPanel();
+        bottom.setBackground(Color.darkGray);
+        bottom.setBounds(700,750,250,75);
+        frame.add(bottom);
+
         JLabel question = new JLabel("");
         question.setBounds(100,700,800,30);
         frame.add(question);
@@ -189,18 +207,10 @@ class Main {
                 frame.add(c);
             }
             x+= 160;
-/*
-            // jeopordy image
-            JLabel jp = new JLabel();
-            ImageIcon jeapordy;
-            jeapordy = new ImageIcon("C:\\Users\\msaub\\IdeaProjects\\csa-final\\src\\jeopardy-logo.png");
-            jp.setIcon(jeopardy);
-            frame.add(jeapordy);
-            frame
-            */
+
         }
 
-        // beautify
+        
         // submit button frame 1 sets it hidden and checks if answer is correct
         submit.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
