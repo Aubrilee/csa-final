@@ -17,7 +17,7 @@ class Main {
 	public static Player p2;
 	public static Player p3;
 	public static Label winBuzz;
-	public static Label text;
+	public static boolean pressed;
 	public static String[] categories = {"HISTORY","ESPN's TOP 10 ALL-TIME ATHLETES","EVERYBODY TALKS ABOUT IT...","THE COMPANY LINE","EPITAPHS & TRIBUTES","3-LETTER WORDS"};
 	public static String[][] questions = {
 		{"For the last 8 years of his life, Galileo was under house arrest for espousing this man's theory.",
@@ -155,7 +155,6 @@ class Main {
     t.setBounds(400,750,150,20);
     f.add(t);
     
-    text = t;
     
     JButton submit = new JButton("Submit");
     submit.setBounds(575,745,100,30);
@@ -228,7 +227,8 @@ class Main {
 	// beautify (font color size place)
 	
   public static void questBox(int col, int row) {
-	  
+	  pressed = false;
+	  winBuzz.setText(null);
 	  Frame f = new Frame();
 	  f.setSize(1000,800); 
 	   f.setBackground(new Color(0,0,0));
@@ -255,10 +255,10 @@ class Main {
 	  f.add(whoWin);
 	  
 	  KeyAdapter keyad = new KeyAdapter() {
-	    	
 	    	public void keyPressed(KeyEvent e) {
 	    		int keycode = e.getKeyCode();
 	    		if ((keycode == KeyEvent.VK_A)){
+	    			pressed = true;
 	    			whoWin.setText("Player 1 -" + p.getName() + "- wins!!");
 	    			current = p;
 	    			f.setFocusable(false);
@@ -266,12 +266,14 @@ class Main {
 	    			TimerTask b = new TimerTask() {
 	    				public void run() {
 	    					cancel();
+	    					x.cancel();
 	    					f.dispose();
 	    				}
 	    			};
 	    			x.schedule(b,2000);
 	    		}
 	    		else if((keycode == KeyEvent.VK_G)) {
+	    			pressed = true;
 	    			current = p2;
 	    			f.setFocusable(false);
 	    			whoWin.setText("Player 2 -" + p2.getName() + "- wins!");
@@ -279,12 +281,14 @@ class Main {
 	    			TimerTask b = new TimerTask() {
 	    				public void run() {
 	    					cancel();
+	    					x.cancel();
 	    					f.dispose();
 	    				}
 	    			};
 	    			x.schedule(b,2000);
 	    		}
 	    		else if((keycode == KeyEvent.VK_L)) {
+	    			pressed = true;
 	    			current = p3;
 	    			f.setFocusable(false);
 	    			whoWin.setText("Player 3 -" + p3.getName() + "- wins!");
@@ -292,6 +296,7 @@ class Main {
 	    			TimerTask b = new TimerTask() {
 	    				public void run() {
 	    					cancel();
+	    					x.cancel();
 	    					f.dispose();
 	    				}
 	    			};
@@ -305,12 +310,18 @@ class Main {
 		TimerTask h = new TimerTask(){
 			int we = 10;
 			public void run() {
-				l.setText(we +" seconds!");
-				we--;
-				if (we < 0) {
-					this. cancel();
+				if (pressed) {
+					this.cancel();
 					t.cancel();
-					we += 2;
+				}
+				l.setText(we +" seconds!");
+				if (we > 0) {
+					we--;
+				}
+				
+				if (we == 0 && !pressed) {
+					this.cancel();
+					t.cancel();
 					winBuzz.setText("Too Late! Choose another question!");
 					l.setText("Too Late!");
 					f.dispose();
@@ -318,7 +329,7 @@ class Main {
 				
 			}
 		};
-		t.schedule(h,1,1000); // every second there is countdown
+		t.schedule(h,0,1000); // every second there is countdown
 	  
 	  f.setLayout(null);
 	  f.setVisible(true); //frame 2
